@@ -27,10 +27,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         env:
           CI: true
-      - name: ESLint action 
-        uses: hallee/eslint-action@1.0.3
-        # GITHUB_TOKEN in forked repositories is read-only
-        # https://help.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request
-        if: ${{ github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository }} 
+      - name: eslint
+        uses: reviewdog/action-eslint@v1
         with:
-          repo-token: ${{secrets.GITHUB_TOKEN}}
+          reporter: github-pr-review # Change reporter.
